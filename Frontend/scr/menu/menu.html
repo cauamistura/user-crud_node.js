@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu</title>
+</head>
+
+<body>
+    <ul class="options">
+        <li>
+            <a href="../index.html">logout</a>
+        </li>        
+        <li>
+            <a href="../user/user.html">Cadastrar usuário</a>
+        </li>
+    </ul>
+    <hr>
+    <ul class="list"></ul>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                const response = await fetch('http://localhost:8080/http://localhost:3030/getAll');
+                let users = await response.json();
+                users = users.data;
+                const userList = document.querySelector('.list');
+                users.forEach(user => {
+                    const listItem = document.createElement('li');
+                    listItem.textContent = `ID: ${user.id}, Username: ${user.username}, Email: ${user.email}`;
+                    userList.appendChild(listItem);
+                });
+
+            } catch (error) {
+                console.error('Ocorreu um erro:', error);
+            }
+        });
+    </script>
+</body>
+
+</html>
