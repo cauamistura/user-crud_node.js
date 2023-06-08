@@ -2,6 +2,12 @@
 
 Este projeto é um exemplo de aplicação web com um CRUD completo de usuário, utilizando o backend em Node.js possiblitando uma API restfull e o frontend em JavaScript.
 
+Dependencias da API
+1. Sequelize
+2. Express
+3. Mysql2
+4. Nodemon
+
 Requisitos
 
 Certifique-se de ter o Node.js e o yarn instalados em sua máquina.
