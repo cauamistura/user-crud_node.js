@@ -4,23 +4,38 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro de usuario</title>
+    <title>Cadastro de usuário</title>
     <link rel="stylesheet" href="./user.css">
 </head>
 <body>
     <div class="page">
-      <form action="" class="formLogin" method="">
-        <h1>Cadastro</h1>
-        <p>Digite os seus dados para se cadastrar.</p>
-        <label for="username">Nome</label>
-        <input type="text" placeholder="Nome" autofocus="true" name="username" />
-        <label for="email">E-mail</label>
-        <input type="text" placeholder="exemplo@gmail.com" name="email" />
-        <label for="password">Senha</label>
-        <input type="password" placeholder="******" name="password" />
-        <input type="submit" value="Cadastrar" class="btn" />
-      </form>
+        <form class="formLogin" onsubmit="validate(event)">
+            <h1>Cadastro</h1>
+            <p>Digite seus dados para se cadastrar.</p>
+            <label for="username">Nome</label>
+            <input type="text" placeholder="Nome" autofocus="true" name="username" />
+            <label for="email">E-mail</label>
+            <input type="text" placeholder="exemplo@gmail.com" name="email" />
+            <label for="password">Senha</label>
+            <input type="password" placeholder="******" name="password" />
+            <input type="submit" value="Cadastrar" class="btn" />
+        </form>
     </div>
-  </body>
-  
+
+    <script src="./script.js"></script>
+
+    <script>
+        // Obtém os parâmetros da URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const username = urlParams.get('username');
+        const email = urlParams.get('email');
+        const id = urlParams.get('id');
+        const password = urlParams.get('password');
+
+        // Preenche os campos do formulário
+        document.querySelector('input[name="username"]').value = username;
+        document.querySelector('input[name="email"]').value = email;
+        document.querySelector('input[name="password"]').value = password;
+    </script>
+</body>
 </html>
