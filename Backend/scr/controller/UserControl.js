@@ -11,11 +11,11 @@ module.exports = {
     async create(req, res) {
         const response = { ...responseModel };
         try {
-            const { username, password, email } = req.body;
+            const { username, password, email, phone, birthday} = req.body;
 
             const [, affecRows] = await connection.query(`
-                INSERT INTO users (id, username, password, email, create_att, update_att)
-                VALUES (default, '${username}', '${password}', '${email}', NOW(), NOW());
+                INSERT INTO users (id, username, password, email, phone, birthday, create_att, update_att)
+                VALUES (default, '${username}', '${password}', '${email}', '${phone}', ${birthday}, NOW(), NOW());
             `)
 
             response.sucess = affecRows > 0;
@@ -83,10 +83,12 @@ module.exports = {
     async update(req, res) {
         const response = { ...responseModel };
         try {
-            const { id, username, password, email } = req.body;
+            const { id, username, password, email, phone, birthday } = req.body;
 
             const [, data] = await connection.query(`
-                UPDATE users SET username = '${username}', password = '${password}', email = '${email}', update_att = NOW()
+                UPDATE users SET username = '${username}', password = '${password}', email = '${email}',
+                phone = '${phone}', birthday = ${birthday},
+                update_att = NOW()
                 WHERE id = ${id}
             `)
 

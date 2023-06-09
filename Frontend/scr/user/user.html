@@ -12,14 +12,26 @@
             <form class="formLogin" onsubmit="validate(event)">
                 <h1>Cadastro</h1>
                 <p>Digite seus dados para se cadastrar.</p>
+                
                 <label for="username">Nome</label>
                 <input type="text" placeholder="Nome" autofocus="true" name="username" />
+               
                 <label for="email">E-mail</label>
                 <input type="text" placeholder="exemplo@gmail.com" name="email" />
+                
+                <label for="birthday">Data de Nascimento</label>
+                <input type="date" ame="birthday" />
+               
+                <label for="phone">Telefone</label>
+                <input type="text" placeholder="(00) 0 0000-0000" name="password" />
+
                 <label for="password">Senha</label>
                 <input type="password" placeholder="******" name="password" />
+
                 <input type="submit" value="Cadastrar" class="btn" />
+                <button onclick="">Excluir</button>
             </form>
+           
         </div>
 
         <script src="./script.js"></script>
@@ -31,11 +43,15 @@
             const email = urlParams.get('email');
             const id = urlParams.get('id');
             const password = urlParams.get('password');
-
+            const birthday = urlParams.get('birthday');
+            const phone = urlParams.get('phone');
+            
             // Preenche os campos do formulário
             document.querySelector('input[name="username"]').value = username;
             document.querySelector('input[name="email"]').value = email;
             document.querySelector('input[name="password"]').value = password;
+            document.querySelector('input[name="birthday"]').value = birthday;
+            document.querySelector('input[name="phone"]').value = phone;
         </script>
     </body>
     </html>

@@ -5,22 +5,20 @@ document.addEventListener('DOMContentLoaded', async () => {
         const userList = document.querySelector('.list');
         users.forEach(user => {
             const listItem = document.createElement('li');
-            listItem.textContent = `Nome: ${user.username} | Email: ${user.email}`;
+            listItem.textContent = ` Código: ${user.id}
+                                   | Nome: ${user.username}
+                                   | Email: ${user.email}
+                                   | Telefone: ${user.password}
+                                   | Data de Nascimento: ${user.password}
+                                  `;
             
             const editButton = document.createElement('button');
             editButton.textContent = 'Editar';
             editButton.addEventListener('click', () => {
                 editUser(user);
             });
-            
-            const deleteButton = document.createElement('button');
-            deleteButton.textContent = 'Excluir';
-            deleteButton.addEventListener('click', () => {
-                deleteUser(user.id, user.username);
-            });
-            
+        
             listItem.appendChild(editButton);
-            listItem.appendChild(deleteButton);
             userList.appendChild(listItem);
         });
 

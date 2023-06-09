@@ -18,6 +18,12 @@ module.exports = {
       email: {
         type: Sequelize.TEXT
       },
+      phone:{
+        type: Sequelize.TEXT
+      },
+      birthday:{
+        type: Sequelize.DATE
+      },
       create_att: {
         type: Sequelize.DATE
       },

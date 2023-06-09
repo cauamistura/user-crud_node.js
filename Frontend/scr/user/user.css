@@ -48,3 +48,17 @@ a {
     background-color: blue;
     color: white;
 }
+
+button{
+    cursor: pointer;
+    height: 25px;
+    background-color: red;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover{
+    background-color: #ff4040 ;
+}
