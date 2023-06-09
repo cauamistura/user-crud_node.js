@@ -1,7 +1,6 @@
 document.addEventListener('DOMContentLoaded', async () => {
     try {
-        const response = await fetch('http://localhost:8080/http://localhost:3030/getAll');
-        let users = await response.json();
+        let users = await getAll();
         users = users.data;
         const userList = document.querySelector('.list');
         users.forEach(user => {
@@ -58,4 +57,9 @@ function editUser(user) {
     const queryParams = `?username=${encodeURIComponent(username)}&email=${encodeURIComponent(email)}
     &id=${encodeURIComponent(id)}&password=${encodeURIComponent(password)}`;
     window.location.href = `../user/user.html${queryParams}`;
+}
+
+async function getAll() {
+    const response = await fetch('http://localhost:8080/http://localhost:3030/getAll');
+    return await response.json();
 }
