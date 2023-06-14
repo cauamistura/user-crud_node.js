@@ -11,6 +11,6 @@ router.post('/delete', UserControl.delete);
 
 router.post('/update', UserControl.update);
 
-router.get('/getAll', UserControl.getAll);
+router.post('/getAll', UserControl.getAll);
 
 module.exports = router;

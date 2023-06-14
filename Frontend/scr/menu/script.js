@@ -1,15 +1,13 @@
 document.addEventListener('DOMContentLoaded', async () => { usersAdd() });
-async function filterList() {
-    console.log('entrou');
-    usersAdd()
-}
+async function filterList() { usersAdd(); }
 
 async function usersAdd() {
     try {
       let users = await getAll();
       users = users.data;
       const userList = document.querySelector('.list');
-      userList.innerHTML = ''; // Limpa a lista antes de adicionar novos usuários
+
+      userList.innerHTML = ''; // Limpa lista
   
       users.forEach(user => {
         const { id, username, email, phone, birthday } = user;
@@ -41,36 +39,13 @@ function formatarData(data) {
     const dataObjeto = new Date(data);
 
     const dia = dataObjeto.getUTCDate();
-    const mes = dataObjeto.getUTCMonth() + 1; // Os meses começam em zero
+    const mes = dataObjeto.getUTCMonth() + 1; 
     const ano = dataObjeto.getUTCFullYear();
 
-    // Adiciona zeros à esquerda se necessário
     const diaFormatado = dia.toString().padStart(2, '0');
     const mesFormatado = mes.toString().padStart(2, '0');
 
     return `${diaFormatado}/${mesFormatado}/${ano}`;
-}
-
-async function deleteUser(id, username) {
-    const data = { id };
-
-    try {
-        const response = await fetch('http://localhost:8080/http://localhost:3030/delete', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        });
-
-        const result = await response.json();
-
-        alert(`${username} foi excluído com sucesso`);
-        location.reload();
-
-    } catch (error) {
-        console.error('Ocorreu um erro:', error);
-    }
 }
 
 function editUser(user) {
@@ -83,22 +58,27 @@ function editUser(user) {
 }
 
 async function getAll() {
-
     const filter = document.querySelector('input[name="filter"]').value;
 
     let response;
 
     if (filter) {
-        const data = { filter }
+        const data = { filter };
         response = await fetch('http://localhost:8080/http://localhost:3030/getAll', {
-            method: 'GET',
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(data)
         });
     } else {
-        response = await fetch('http://localhost:8080/http://localhost:3030/getAll');
+        response = await fetch('http://localhost:8080/http://localhost:3030/getAll', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
     }
+
     return await response.json();
 }

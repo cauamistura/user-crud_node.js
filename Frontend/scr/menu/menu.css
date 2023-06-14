@@ -35,7 +35,7 @@ body {
     font-weight: bold;
 }
 
-.list li button {
+button {
     margin-left: 10px;
     padding: 5px 10px;
     background-color: #333;
@@ -45,7 +45,7 @@ body {
     cursor: pointer;
 }
 
-.list li button:hover {
+button:hover {
     background-color: #555;
 }
 
