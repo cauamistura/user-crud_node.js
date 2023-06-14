@@ -1,57 +1,97 @@
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Cadastro de usuário</title>
-        <link rel="stylesheet" href="./user.css">
-    </head>
-    <body>
-        <div class="page">
-            <form class="formLogin" onsubmit="validate(event)">
-                <h1>Cadastro</h1>
-                <p>Digite seus dados para se cadastrar.</p>
-                
-                <label for="username">Nome</label>
-                <input type="text" placeholder="Nome" autofocus="true" name="username" />
-               
-                <label for="email">E-mail</label>
-                <input type="text" placeholder="exemplo@gmail.com" name="email" />
-                
-                <label for="birthday">Data de Nascimento</label>
-                <input type="date" ame="birthday" />
-               
-                <label for="phone">Telefone</label>
-                <input type="text" placeholder="(00) 0 0000-0000" name="password" />
+<!DOCTYPE html>
+<html lang="en">
 
-                <label for="password">Senha</label>
-                <input type="password" placeholder="******" name="password" />
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de usuário</title>
+    <link rel="stylesheet" href="./user.css">
+</head>
 
-                <input type="submit" value="Cadastrar" class="btn" />
-                <button onclick="">Excluir</button>
-            </form>
-           
-        </div>
+<body>
+    <div class="page">
+        <form class="formLogin" onsubmit="validate(event)">
+            <h1>Cadastro</h1>
+            <p>Digite seus dados para se cadastrar.</p>
 
-        <script src="./script.js"></script>
+            <label for="username">Nome</label>
+            <input type="text" placeholder="Nome" autofocus="true" name="username" required />
 
-        <script>
-            // Obtém os parâmetros da URL
-            const urlParams = new URLSearchParams(window.location.search);
-            const username = urlParams.get('username');
-            const email = urlParams.get('email');
-            const id = urlParams.get('id');
-            const password = urlParams.get('password');
-            const birthday = urlParams.get('birthday');
-            const phone = urlParams.get('phone');
-            
-            // Preenche os campos do formulário
-            document.querySelector('input[name="username"]').value = username;
-            document.querySelector('input[name="email"]').value = email;
-            document.querySelector('input[name="password"]').value = password;
-            document.querySelector('input[name="birthday"]').value = birthday;
-            document.querySelector('input[name="phone"]').value = phone;
-        </script>
-    </body>
-    </html>
+            <label for="email">E-mail</label>
+            <input type="email" placeholder="exemplo@gmail.com" name="email" required />
+
+            <label for="birthday">Data de Nascimento</label>
+            <input type="text" placeholder="dd/mm/yyyy" name="birthday" oninput="maskDate(event.target)" required />
+
+            <label for="phone">Telefone</label>
+            <input type="text" placeholder="(##) # ####-####" name="phone" oninput="maskPhone(event.target)" required />
+
+            <label for="password">Senha</label>
+            <input type="password" placeholder="******" name="password" required />
+
+            <input type="submit" value="Cadastrar" class="btn" />            
+        </form>
+        <button onclick="deleteUser()">Excluir</button>
+    </div>
+
+    <script src="./script.js"></script>
+
+    <script>
+        // Obtém os parâmetros da URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const username = urlParams.get('username');
+        const email = urlParams.get('email');
+        const id = urlParams.get('id');
+        const password = urlParams.get('password');
+        const birthday = urlParams.get('birthday');
+        const phone = urlParams.get('phone');
+
+        // Preenche os campos do formulário
+        document.querySelector('input[name="username"]').value = username;
+        document.querySelector('input[name="email"]').value = email;
+        document.querySelector('input[name="password"]').value = password;
+        document.querySelector('input[name="birthday"]').value = birthday;
+        document.querySelector('input[name="phone"]').value = phone;
+
+
+        function maskDate(input) {
+            // Remove caracteres não numéricos
+            let value = input.value.replace(/\D/g, '');
+
+            // Limita o número máximo de caracteres para a máscara dd/mm/yyyy
+            if (value.length > 8) {
+                value = value.substr(0, 8);
+            }
+
+            // Insere as barras entre o dia, mês e ano
+            if (value.length > 2 && value.length < 5) {
+                value = value.replace(/(\d{2})(\d)/, '$1/$2');
+            } else if (value.length >= 5) {
+                value = value.replace(/(\d{2})(\d{2})(\d)/, '$1/$2/$3');
+            }
+
+            input.value = value;
+        }
+
+
+        function maskPhone(input) {
+            // Remove caracteres não numéricos
+            let value = input.value.replace(/\D/g, '');
+
+            // Limita o número máximo de caracteres para a máscara (xx) xxxx-xxxx
+            if (value.length > 11) {
+                value = value.substr(0, 11);
+            }
+
+            // Insere parênteses e hífen
+            value = value.replace(/^(\d{2})(\d)/g, '($1) $2');
+            value = value.replace(/(\d)(\d{4})$/, '$1-$2');
+
+            input.value = value;
+        }
+
+    </script>
+</body>
+
+</html>

@@ -15,7 +15,7 @@ module.exports = {
 
             const [, affecRows] = await connection.query(`
                 INSERT INTO users (id, username, password, email, phone, birthday, create_att, update_att)
-                VALUES (default, '${username}', '${password}', '${email}', '${phone}', ${birthday}, NOW(), NOW());
+                VALUES (default, '${username}', '${password}', '${email}', '${phone}', '${birthday}', NOW(), NOW());
             `)
 
             response.sucess = affecRows > 0;
@@ -25,6 +25,7 @@ module.exports = {
         }
         return res.json(response);
     },
+
 
     async login(req, res) {
         const response = { ...responseModel };
@@ -46,10 +47,16 @@ module.exports = {
 
     async getAll(req, res) {
         const response = { ...responseModel };
+
+        const { filter } = req.body;
+
+        let sql = `SELECT * FROM users`;
+        if (filter) {
+            sql += ` where username like '%${filter}%'`;
+        } 
+
         try {
-            const [, data] = await connection.query(`
-                SELECT * FROM users
-            `)
+            const [, data] = await connection.query(sql)
 
             response.sucess = data.length > 0;
             response.data = data;
@@ -87,7 +94,7 @@ module.exports = {
 
             const [, data] = await connection.query(`
                 UPDATE users SET username = '${username}', password = '${password}', email = '${email}',
-                phone = '${phone}', birthday = ${birthday},
+                phone = '${phone}', birthday = '${birthday}',
                 update_att = NOW()
                 WHERE id = ${id}
             `)
@@ -95,8 +102,7 @@ module.exports = {
             response.sucess = true;
             response.data = data;
 
-        } catch (error) {
-            response.sucess = false;
+        } catch (error) {            
             response.error.push(error);
         }
 
